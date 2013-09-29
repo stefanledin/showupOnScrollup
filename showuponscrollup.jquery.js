@@ -4,7 +4,7 @@
 	var currentScrollTopValue = 0;
 	var direction;
 	
-	function determineScrollDirection () {
+	function getScrollDirection () {
 		currentScrollTopValue = $(document).scrollTop();
 		if (currentScrollTopValue < previousScrollTopValue) {
 			direction = 'up';
@@ -15,18 +15,30 @@
 		return direction;
 	}
 
-	function init () {
-		var previousDirection;
+	function showUp ($el) {
+		if (!$el.hasClass('fixed')) {
+			$el.addClass('fixed');
+		}
+	}
+
+	function init ($el) {
+		var previousDirection = 'down';
 		var scrollTopValueWhenDirectionChanged;
+		var hasShownUp = 0;
 		
 		$(window).on('scroll', function () {
-			direction = determineScrollDirection();
+			direction = getScrollDirection();
+			if ( (direction === 'down') && hasShownUp ) {
+				$el.removeClass('fixed');
+				hasShownUp = 0;
+			}
 			if (previousDirection !== direction) {
 				scrollTopValueWhenDirectionChanged = $(document).scrollTop();
 			} else {
 				var diff = $(document).scrollTop() - scrollTopValueWhenDirectionChanged;
 				if ( (diff < 0) && (diff > -20) ) {
-					console.log('plask');
+					showUp($el);
+					hasShownUp = 1;
 					scrollTopValueWhenDirectionChanged = 0;
 				}
 			}
@@ -35,7 +47,7 @@
 	}
 	
 	$.fn.showupOnScrollup = function () {
-		init();
+		init(this);
 		
 		return this;
 	};
