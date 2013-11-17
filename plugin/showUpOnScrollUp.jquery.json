@@ -1,0 +1,27 @@
+{
+  "name": "showUpOnScrollUp",
+  "title": "Showuponscrollup",
+  "description": "A jQuery plugin that shows elements when scrolling up, iOS 7-style.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/stefanledin/showupOnScrollup",
+  "author": {
+    "name": "Stefan Ledin",
+    "email": "stefan.ledin@gmail.com",
+    "url": "http://www.stefanledin.se"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stefanledin/showupOnScrollup.git"
+  },
+  "bugs": "https://github.com/stefanledin/showupOnScrollup/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/stefanledin/showupOnScrollup/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
