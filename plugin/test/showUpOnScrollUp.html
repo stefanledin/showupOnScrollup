@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>Showuponscrollup Test Suite</title>
+  <style type="text/css">
+    body {
+      height: 2000px;
+    }
+  </style>
   <!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
   <script src="../libs/jquery-loader.js"></script>
   <!-- Load local QUnit. -->
@@ -19,6 +24,13 @@
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture">
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
     <span>lame test markup</span>
     <span>normal test markup</span>
     <span>awesome test markup</span>

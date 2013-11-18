@@ -24,39 +24,49 @@
     // This will run before each test in this module.
     setup: function() {
       this.elems = $('#qunit-fixture').children();
+      this.navBar = $('nav');
+      this.navBar.showUpOnScrollUp();
+
+      window.scroll(0,0);
     }
   });
 
-  test('is chainable', function() {
-    expect(1);
-    // Not a bad test to run on collection methods.
-    strictEqual(this.elems.showUpOnScrollUp(), this.elems, 'should be chainable');
+  test('Is a property in the jQuery object', 1, function () {
+    ok($.fn.showUpOnScrollUp);
   });
 
-  test('is awesome', function() {
-    expect(1);
-    strictEqual(this.elems.showUpOnScrollUp().text(), 'awesome0awesome1awesome2', 'should be awesome');
+  test('Plugin is available in the window object', 1, function () {
+    ok(window.plugin);
   });
 
-  module('jQuery.showUpOnScrollUp');
-
-  test('is awesome', function() {
-    expect(2);
-    strictEqual($.showUpOnScrollUp(), 'awesome.', 'should be awesome');
-    strictEqual($.showUpOnScrollUp({punctuation: '!'}), 'awesome!', 'should be thoroughly awesome');
+  test('getScrollDirection returns something', 1, function () {
+    var plugin = new window.plugin();
+    equal(plugin.getScrollDirection(), 'down');
   });
 
-  module(':showUpOnScrollUp selector', {
-    // This will run before each test in this module.
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
+  test('getScrollDirection returns the right thing', 6, function () {
+    var plugin = new window.plugin();
+    equal(plugin.getScrollDirection(), 'down');
+    window.scroll(0, 100);
+    equal(plugin.getScrollDirection(), 'down');
+    window.scroll(0, 50);
+    equal(plugin.getScrollDirection(), 'up');
+    notEqual(plugin.getScrollDirection(), 'up');
+    window.scroll(0, 51);
+    notEqual(plugin.getScrollDirection(), 'up');
+    equal(plugin.getScrollDirection(), 'down');
   });
 
-  test('is awesome', function() {
-    expect(1);
-    // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':showUpOnScrollUp').get(), this.elems.last().get(), 'knows awesome when it sees it');
+  test('element does not have a class from the beginning ', 1, function () {
+    notEqual(this.navBar.hasClass('fixed'));
   });
 
+  test('element gets a class when the user scrolls up', 2, function () {
+    window.scroll(0, 100);
+    equal(this.navBar.hasClass('fixed'), false);
+    //window.scroll(0, 50);
+    $(window).trigger('scroll', {x: 0, y: 50});
+    equal(this.navBar.hasClass('fixed'), true);
+  });
+  
 }(jQuery));
